@@ -40,6 +40,7 @@ class AudezeBatteryMonitor:
             match = re.search(r'Level:\s*(\d+)%', result.stdout)
             if match:
                 level = int(match.group(1))
+                print(f"Battery Status fetched: {level}%")
 
                 is_low = level <= SHOW_NOTIFICATION_PERCENTAGE
 
@@ -52,7 +53,7 @@ class AudezeBatteryMonitor:
 
                 return level
             else:
-                print("Could not parse battery level from output.")
+                print("Could not parse battery level.")
                 return TEXT_ON_FAIL
 
         except Exception as e:
@@ -83,15 +84,24 @@ class AudezeBatteryMonitor:
             icon.visible = False
             return
 
+        # Did not change, don't update
+        if self.battery_level == str(current_level) + "%":
+            return
+
         self.battery_level = str(current_level) + "%"
+
         is_low = current_level < HIDE_THRESHOLD_PERCENTAGE
         
         # Note: In pystray/KDE, setting visible=False moves it to the overflow popup
         try:
-            icon.visible = is_low
+            icon.visible = True
             img = self.create_icon_image(self.battery_level)
             icon.icon = img
             icon.tooltip = f"Audeze Battery: {self.battery_level}"
+
+            # This is needed because the icon wont update if the icon is not visible
+            time.sleep(0.001)
+            icon.visible = is_low
         except Exception as e:
              print(f"Failed to update icon visual: {e}")
 

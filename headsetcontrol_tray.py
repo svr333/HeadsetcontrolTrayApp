@@ -10,13 +10,14 @@ CHECK_INTERVAL_SECONDS = 5 # Interval in seconds to check battery status at
 HIDE_THRESHOLD_PERCENTAGE = 30 # Hide icon and trigger warning if below this value
 SHOW_NOTIFICATION_PERCENTAGE = 20 # At how many percent a notification should be sent
 TEXT_ON_FAIL = "?" # Text to show when we fail to fetch Battery Status
+TOOLTIP = "Headset Battery"
 
 def exit_handler(icon, item):
     """Stops the tray icon and exits the script."""
     icon.stop()
 
 
-class AudezeBatteryMonitor:
+class HeadsetBatteryMonitor:
     def __init__(self):
         self.battery_level = TEXT_ON_FAIL
         self.is_low_battery = True
@@ -65,7 +66,7 @@ class AudezeBatteryMonitor:
             # Send system notification with 'Critical' urgency
             subprocess.run(
                 ['notify-send',
-                    'Audeze Battery Low',
+                    'Headset Battery Low',
                     f'Battery dropped below {level}%. Please charge.',
                     '-u', 'critical'],
                 capture_output=True, check=False
@@ -97,7 +98,7 @@ class AudezeBatteryMonitor:
             icon.visible = True
             img = self.create_icon_image(self.battery_level)
             icon.icon = img
-            icon.tooltip = f"Audeze Battery: {self.battery_level}"
+            icon.tooltip = f"Headset Battery: {self.battery_level}"
 
             # This is needed because the icon wont update if the icon is not visible
             time.sleep(0.001)
@@ -129,7 +130,7 @@ class AudezeBatteryMonitor:
 
 
 def main():
-    monitor = AudezeBatteryMonitor()
+    monitor = HeadsetBatteryMonitor()
     
     # Create the initial icon image (will show '?' until first check)
     img = monitor.create_icon_image(TEXT_ON_FAIL)
@@ -137,9 +138,9 @@ def main():
     context_menu = [pystray.MenuItem('Exit', exit_handler)]
 
     tray_icon = pystray.Icon(
-        "Audeze_Battery", 
+        "Headsetcontrol_Battery", 
         img, 
-        tooltip="Audeze Battery Monitor", 
+        tooltip=TOOLTIP, 
         menu=context_menu
     )
 

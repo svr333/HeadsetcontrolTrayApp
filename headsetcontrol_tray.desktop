@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Headset Battery
+Comment=Show Headset Battery in System Tray
+Exec=/home/senne/.local/bin/headsetcontrol_tray.py
+Terminal=false
+X-GNOME-Autostart-enabled=true

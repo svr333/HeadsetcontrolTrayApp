@@ -16,4 +16,8 @@ I am content with my version, however further improvements are possible:
 - Python, Python-Pillow
 - notify-send if you want to send notifications
 
+## Installation
+1. Put `headsetcontrol_tray.py` inside `~/.local/bin`
+2. Put `headsetcontrol_tray.desktop` inside `~/.config/autostart`
+
 This app was made with qwen3.6-27B.

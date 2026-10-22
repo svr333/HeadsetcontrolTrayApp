@@ -6,7 +6,7 @@ import threading
 import time
 
 # --- Configuration ---
-CHECK_INTERVAL_SECONDS = 5 # Interval in seconds to check battery status at
+CHECK_INTERVAL_SECONDS = 600 # Interval in seconds to check battery status at
 HIDE_THRESHOLD_PERCENTAGE = 30 # Hide icon and trigger warning if below this value
 SHOW_NOTIFICATION_PERCENTAGE = 20 # At how many percent a notification should be sent
 TEXT_ON_FAIL = "?" # Text to show when we fail to fetch Battery Status

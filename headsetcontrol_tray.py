@@ -109,11 +109,11 @@ class HeadsetBatteryMonitor:
 
     def create_icon_image(self, text):
         """Generates an image with the percentage text."""
-        width, height = 48, 24 # Icon size
+        width, height = 48, 48 # Icon size
         img = Image.new('RGBA', (width, height), color=(0, 0, 0, 0)) # Transparent background
         d = ImageDraw.Draw(img)
         try:
-            font = ImageFont.truetype("DejaVuSans.ttf", 22)
+            font = ImageFont.truetype("DejaVuSans.ttf", 20)
         except:
             font = ImageFont.load_default()
 
@@ -123,8 +123,8 @@ class HeadsetBatteryMonitor:
         
         # Center the text
         x = (width - text_width) / 2
-        y = (height - text_height) / 2
-        
+        y = (height - text_height) / 2 - 2 # Extra offset since it didnt align nicely
+
         d.text((x, y), text, fill=(255, 255, 255), font=font)
         return img
 
